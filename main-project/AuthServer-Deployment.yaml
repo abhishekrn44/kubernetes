@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authserver-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authserver-app
+  template:
+    metadata:
+      labels:
+        app: authserver-app
+    spec:
+      containers:
+        - image: auth
+          name: auth
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Never
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                key: profile
+                name: config

@@ -1,0 +1,12 @@
+fullnameOverride: order-agg
+
+image:
+  name: order-agg-service
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true
+

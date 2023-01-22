@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: orderagg-deployment
+  name: orderagg-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orderagg-app
+  template:
+    metadata:
+      labels:
+        app: orderagg-app
+    spec:
+      containers:
+        - image: order-agg
+          name: order-agg
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                key: profile
+                name: config

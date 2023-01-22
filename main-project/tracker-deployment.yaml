@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tracker-app
+  template:
+    metadata:
+      labels:
+        app: tracker-app
+    spec:
+      containers:
+        - image: tracker
+          name: tracker
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Never  
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                key: profile
+                name: config            
